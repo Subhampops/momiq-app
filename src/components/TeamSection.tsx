@@ -7,22 +7,22 @@ const avatarBgs = ['#FF4FA3', '#B44FFF', '#00C2FF', '#FF8CC8'];
 
 const teamMembers = [
   {
-    name: 'Subham Bhattacharya', role: 'Full-Stack Lead',
+    name: 'Jhinuk Roy', role: 'Full-Stack Lead',
     bio: 'B.Tech final-year student passionate about building technology for maternal wellness.',
-    initials: 'SB', email: 'subham@momiq.app',
+    initials: 'JR', email: 'jhinuk@momiq.app',
   },
   {
-    name: 'Sarah Johnson', role: 'UI/UX Designer',
+    name: 'Jyoti Kumari', role: 'UI/UX Designer',
     bio: 'Crafts beautiful, accessible interfaces with a focus on pregnancy & maternal health.',
-    initials: 'SJ', email: 'sarah@momiq.app',
+    initials: 'JK', email: 'Jyoti@momiq.app',
   },
   {
-    name: 'Michael Rodriguez', role: 'AI / ML Engineer',
+    name: 'Riki Bouri', role: 'AI / ML Engineer',
     bio: 'Integrates OpenAI to deliver smart, contextual health guidance for moms.',
     initials: 'MR', email: 'michael@momiq.app',
   },
   {
-    name: 'Priya Patel', role: 'Community Manager',
+    name: 'Krishna Mahato', role: 'Community Manager',
     bio: 'Builds supportive, vibrant communities for expecting mothers across India.',
     initials: 'PP', email: 'priya@momiq.app',
   },

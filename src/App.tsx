@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { auth } from "./firebase";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { FeatureHighlight } from "./components/FeatureHighlight";
@@ -62,7 +64,20 @@ export default function App() {
     "login",
   );
   const [authAutoFocus, setAuthAutoFocus] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const [user, setUser] = useState<User | null>(null);
+  const isLoggedIn = !!user;
+
+  // Listen to Firebase auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      // Auto-navigate to dashboard when user logs in if they are on the home page
+      if (currentUser && currentView === 'home') {
+        setCurrentView('dashboard');
+      }
+    });
+    return () => unsubscribe();
+  }, [currentView]);
 
   // Smooth scroll to top with animation
   useEffect(() => {
@@ -108,7 +123,6 @@ export default function App() {
   };
 
   const handleAuthSuccess = () => {
-    setIsLoggedIn(true);
     setAuthModalOpen(false);
     setCurrentView("dashboard");
   };
@@ -169,16 +183,19 @@ export default function App() {
     </div>
   );
 
-  // Guest login handler - allows access to dashboard without authentication
+  // Guest login handler - allows access to dashboard without authentication (disabled via Civic Auth)
   const handleGuestLogin = () => {
-    setIsLoggedIn(true);
     setAuthModalOpen(false);
     setCurrentView("dashboard");
   };
 
   // Logout handler - clears auth state and returns to landing page
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Sign out error:", error);
+    }
     setCurrentView("home");
     setNavigationHistory([]);
     window.scrollTo(0, 0);
